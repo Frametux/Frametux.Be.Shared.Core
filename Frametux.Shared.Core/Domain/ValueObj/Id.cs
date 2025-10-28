@@ -20,6 +20,11 @@ public class Id
         Value = value;
     }
 
+    public Id()
+    {
+        Value = Guid.NewGuid().ToString();
+    }
+    
     public static implicit operator string(Id id) => id.Value;
     public static implicit operator Id(string value) => new(value);
 }

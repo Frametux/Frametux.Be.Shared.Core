@@ -88,6 +88,104 @@ public class IdTest
 
     #endregion
 
+    #region Parameterless Constructor Tests
+
+    [Test]
+    public void Constructor_Parameterless_ShouldCreateValidId()
+    {
+        // Act
+        var id = new Id();
+
+        // Assert
+        Assert.That((string)id, Is.Not.Null);
+        Assert.That((string)id, Is.Not.Empty);
+        Assert.That(((string)id).Length, Is.LessThanOrEqualTo(Id.MaxLength));
+    }
+
+    [Test]
+    public void Constructor_Parameterless_ShouldGenerateValidGuid()
+    {
+        // Act
+        var id = new Id();
+        var guidString = (string)id;
+
+        // Assert
+        Assert.That(Guid.TryParse(guidString, out var parsedGuid), Is.True, "Generated value should be a valid GUID");
+        Assert.That(parsedGuid, Is.Not.EqualTo(Guid.Empty), "Generated GUID should not be empty");
+    }
+
+    [Test]
+    public void Constructor_Parameterless_ShouldGenerateUniqueValues()
+    {
+        // Arrange
+        var ids = new HashSet<string>();
+        const int numberOfIds = 100;
+
+        // Act
+        for (int i = 0; i < numberOfIds; i++)
+        {
+            var id = new Id();
+            ids.Add(id);
+        }
+
+        // Assert
+        Assert.That(ids.Count, Is.EqualTo(numberOfIds), "All generated IDs should be unique");
+    }
+
+    [Test]
+    public void Constructor_Parameterless_ShouldPassValidation()
+    {
+        // Act
+        var id = new Id();
+        var validationResult = Id.Validator.Validate(id);
+
+        // Assert
+        Assert.That(validationResult.IsValid, Is.True, "Generated ID should pass validation");
+        Assert.That(validationResult.Errors, Is.Empty, "Generated ID should have no validation errors");
+    }
+
+    [Test]
+    public void Constructor_Parameterless_ShouldWorkWithImplicitConversion()
+    {
+        // Act
+        var id = new Id();
+        string stringValue = id; // Implicit conversion to string
+        Id convertedBack = stringValue; // Implicit conversion back to Id
+
+        // Assert
+        Assert.That((string)convertedBack, Is.EqualTo((string)id));
+        Assert.That(Guid.TryParse(stringValue, out _), Is.True, "Converted string should be a valid GUID");
+    }
+
+    [Test]
+    public void Constructor_Parameterless_MultipleCalls_ShouldGenerateDifferentGuids()
+    {
+        // Act
+        var id1 = new Id();
+        var id2 = new Id();
+        var id3 = new Id();
+
+        // Assert
+        Assert.That((string)id1, Is.Not.EqualTo((string)id2));
+        Assert.That((string)id2, Is.Not.EqualTo((string)id3));
+        Assert.That((string)id1, Is.Not.EqualTo((string)id3));
+    }
+
+    [Test]
+    public void Constructor_Parameterless_ShouldGenerateStandardGuidFormat()
+    {
+        // Act
+        var id = new Id();
+
+        // Assert - Verify it's a valid GUID by converting it back
+        Assert.DoesNotThrow(() => Guid.Parse(id), "Generated value should be convertible back to a valid GUID");
+        
+        var parsedGuid = Guid.Parse(id);
+        Assert.That(parsedGuid, Is.Not.EqualTo(Guid.Empty), "Parsed GUID should not be empty");
+    }
+
+    #endregion
+
     #region Invalid Input Tests
 
     [Test]
@@ -212,7 +310,7 @@ public class IdTest
         // Act & Assert
         Assert.Throws<ValidationException>(() =>
         {
-            Id id = string.Empty;
+            Id unused = string.Empty;
         });
     }
 
