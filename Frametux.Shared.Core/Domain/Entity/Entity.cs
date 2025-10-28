@@ -1,0 +1,10 @@
+using Frametux.Shared.Core.Domain.ValueObj;
+
+namespace Frametux.Shared.Core.Domain.Entity;
+
+public abstract class Entity
+{
+    public Id Id { get; init; } = new();
+    
+    public CreatedAt CreatedAt { get; init; } = new();
+}
