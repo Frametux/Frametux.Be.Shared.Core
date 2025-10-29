@@ -219,6 +219,7 @@ public class CreatedAtTest
         else
         {
             // If timezone conversion doesn't make it future, it should succeed
+            // ReSharper disable once ObjectCreationAsStatement
             Assert.DoesNotThrow(() => new CreatedAt(futureLocal));
         }
     }
@@ -622,7 +623,62 @@ public class CreatedAtTest
         }
 
         // Act & Assert - Should not throw since it becomes valid when converted to UTC
-        Assert.DoesNotThrow(() => new CreatedAt(localTime));
+        Assert.DoesNotThrow(() =>
+        {
+            var unused = new CreatedAt(localTime);
+        });
+    }
+
+    #endregion
+
+    #region Value Property Tests
+
+    [Test]
+    public void Value_ShouldReturnSameAsImplicitConversion()
+    {
+        // Arrange
+        var testDateTime = DateTime.UtcNow.AddHours(-1);
+        var createdAt = new CreatedAt(testDateTime);
+
+        // Act
+        var directValue = createdAt.Value;
+        DateTime implicitValue = createdAt;
+
+        // Assert
+        Assert.That(directValue, Is.EqualTo(implicitValue));
+        Assert.That(directValue, Is.EqualTo(testDateTime));
+    }
+
+    [Test]
+    public void Value_WithParameterlessConstructor_ShouldReturnSameAsImplicitConversion()
+    {
+        // Act
+        var createdAt = new CreatedAt();
+        var directValue = createdAt.Value;
+        DateTime implicitValue = createdAt;
+
+        // Assert
+        Assert.That(directValue, Is.EqualTo(implicitValue));
+        Assert.That(directValue, Is.LessThanOrEqualTo(DateTime.UtcNow));
+        Assert.That(directValue.Kind, Is.EqualTo(DateTimeKind.Utc));
+    }
+
+    [Test]
+    public void Value_WithTimeZoneConversion_ShouldReturnSameAsImplicitConversion()
+    {
+        // Arrange
+        var localTime = new DateTime(2023, 5, 15, 14, 30, 0, DateTimeKind.Local);
+        var createdAt = new CreatedAt(localTime);
+        var expectedUtc = localTime.ToUniversalTime();
+
+        // Act
+        var directValue = createdAt.Value;
+        DateTime implicitValue = createdAt;
+
+        // Assert
+        Assert.That(directValue, Is.EqualTo(implicitValue));
+        Assert.That(directValue, Is.EqualTo(expectedUtc));
+        Assert.That(directValue.Kind, Is.EqualTo(DateTimeKind.Utc));
     }
 
     #endregion

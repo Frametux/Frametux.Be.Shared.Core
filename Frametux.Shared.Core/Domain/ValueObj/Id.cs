@@ -4,7 +4,7 @@ namespace Frametux.Shared.Core.Domain.ValueObj;
 
 public class Id
 {
-    private string Value { get; init; }
+    public string Value { get; private init; }
     
     public const int MaxLength = 255;
     public static InlineValidator<string> Validator { get; } = new()

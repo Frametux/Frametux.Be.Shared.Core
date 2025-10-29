@@ -381,6 +381,40 @@ public class IdTest
 
     #endregion
 
+    #region Value Property Tests
+
+    [Test]
+    public void Value_ShouldReturnSameAsImplicitConversion()
+    {
+        // Arrange
+        const string testValue = "test-value-123";
+        var id = new Id(testValue);
+
+        // Act
+        var directValue = id.Value;
+        string implicitValue = id;
+
+        // Assert
+        Assert.That(directValue, Is.EqualTo(implicitValue));
+        Assert.That(directValue, Is.EqualTo(testValue));
+    }
+
+    [Test]
+    public void Value_WithParameterlessConstructor_ShouldReturnSameAsImplicitConversion()
+    {
+        // Act
+        var id = new Id();
+        var directValue = id.Value;
+        string implicitValue = id;
+
+        // Assert
+        Assert.That(directValue, Is.EqualTo(implicitValue));
+        Assert.That(directValue, Is.Not.Null);
+        Assert.That(directValue, Is.Not.Empty);
+    }
+
+    #endregion
+
     #region Validator Tests
 
     [Test]

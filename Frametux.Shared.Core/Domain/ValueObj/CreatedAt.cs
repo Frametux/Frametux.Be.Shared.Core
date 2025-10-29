@@ -4,7 +4,7 @@ namespace Frametux.Shared.Core.Domain.ValueObj;
 
 public class CreatedAt
 {
-    private DateTime Value { get; init; }
+    public DateTime Value { get; private init; }
     
     public static InlineValidator<DateTime> Validator { get; } = new()
     {
