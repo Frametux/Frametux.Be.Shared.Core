@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Frametux.Shared.Core.Domain.ValueObj;
+namespace TodoApi.Domain.UserAggregate.ValueObj;
 
 public class PasswordHash
 {
