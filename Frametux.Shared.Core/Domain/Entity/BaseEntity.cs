@@ -2,7 +2,7 @@ using Frametux.Shared.Core.Domain.ValueObj;
 
 namespace Frametux.Shared.Core.Domain.Entity;
 
-public abstract class Entity
+public abstract class BaseEntity
 {
     public Id Id { get; init; } = new();
     

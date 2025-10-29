@@ -3,14 +3,14 @@ using Frametux.Shared.Core.Domain.ValueObj;
 namespace UnitTest.Domain.Entity;
 
 [TestFixture]
-public class EntityTest
+public class BaseEntityTest
 {
     #region Test Helper Class
     
     /// <summary>
     /// Concrete test implementation of the abstract Entity class for testing purposes
     /// </summary>
-    private class TestEntity : Frametux.Shared.Core.Domain.Entity.Entity
+    private class TestBaseEntity : Frametux.Shared.Core.Domain.Entity.BaseEntity
     {
         // Empty implementation - inherits all Entity functionality
     }
@@ -18,9 +18,9 @@ public class EntityTest
     /// <summary>
     /// Concrete test implementation with custom initialization
     /// </summary>
-    private class TestEntityWithCustomInit : Frametux.Shared.Core.Domain.Entity.Entity
+    private class TestBaseEntityWithCustomInit : Frametux.Shared.Core.Domain.Entity.BaseEntity
     {
-        public TestEntityWithCustomInit(Id id, CreatedAt createdAt)
+        public TestBaseEntityWithCustomInit(Id id, CreatedAt createdAt)
         {
             Id = id;
             CreatedAt = createdAt;
@@ -35,7 +35,7 @@ public class EntityTest
     public void Constructor_WithDefaultInitialization_ShouldCreateEntityWithNewId()
     {
         // Arrange & Act
-        var entity = new TestEntity();
+        var entity = new TestBaseEntity();
 
         // Assert
         Assert.That(entity.Id, Is.Not.Null);
@@ -46,7 +46,7 @@ public class EntityTest
     public void Constructor_WithDefaultInitialization_ShouldCreateEntityWithNewCreatedAt()
     {
         // Arrange & Act
-        var entity = new TestEntity();
+        var entity = new TestBaseEntity();
 
         // Assert
         Assert.That(entity.CreatedAt, Is.Not.Null);
@@ -57,8 +57,8 @@ public class EntityTest
     public void Constructor_WithDefaultInitialization_ShouldCreateUniqueIds()
     {
         // Arrange & Act
-        var entity1 = new TestEntity();
-        var entity2 = new TestEntity();
+        var entity1 = new TestBaseEntity();
+        var entity2 = new TestBaseEntity();
 
         // Assert
         Assert.That((string)entity1.Id, Is.Not.EqualTo((string)entity2.Id));
@@ -68,9 +68,9 @@ public class EntityTest
     public void Constructor_WithDefaultInitialization_ShouldCreateDifferentCreatedAtTimes()
     {
         // Arrange & Act
-        var entity1 = new TestEntity();
+        var entity1 = new TestBaseEntity();
         Thread.Sleep(1); // Ensure different timestamps
-        var entity2 = new TestEntity();
+        var entity2 = new TestBaseEntity();
 
         // Assert
         Assert.That((DateTime)entity1.CreatedAt, Is.Not.EqualTo((DateTime)entity2.CreatedAt));
@@ -83,7 +83,7 @@ public class EntityTest
         var beforeCreation = DateTime.UtcNow;
         
         // Act
-        var entity = new TestEntity();
+        var entity = new TestBaseEntity();
         var afterCreation = DateTime.UtcNow;
 
         // Assert
@@ -104,7 +104,7 @@ public class EntityTest
         var customCreatedAt = new CreatedAt(DateTime.UtcNow.AddDays(-1));
 
         // Act
-        var entity = new TestEntityWithCustomInit(customId, customCreatedAt);
+        var entity = new TestBaseEntityWithCustomInit(customId, customCreatedAt);
 
         // Assert
         Assert.That((string)entity.Id, Is.EqualTo("custom-test-id-123"));
@@ -119,7 +119,7 @@ public class EntityTest
         var customCreatedAt = new CreatedAt(specificDate);
 
         // Act
-        var entity = new TestEntityWithCustomInit(customId, customCreatedAt);
+        var entity = new TestBaseEntityWithCustomInit(customId, customCreatedAt);
 
         // Assert
         Assert.That((DateTime)entity.CreatedAt, Is.EqualTo(specificDate));
@@ -134,7 +134,7 @@ public class EntityTest
         var customCreatedAt = new CreatedAt(specificDate);
 
         // Act
-        var entity = new TestEntityWithCustomInit(customId, customCreatedAt);
+        var entity = new TestBaseEntityWithCustomInit(customId, customCreatedAt);
 
         // Assert
         Assert.That((string)entity.Id, Is.EqualTo("preserve-test-id"));
@@ -149,7 +149,7 @@ public class EntityTest
         var minimalCreatedAt = new CreatedAt(DateTime.MinValue.ToUniversalTime());
 
         // Act
-        var entity = new TestEntityWithCustomInit(minimalId, minimalCreatedAt);
+        var entity = new TestBaseEntityWithCustomInit(minimalId, minimalCreatedAt);
 
         // Assert
         Assert.That((string)entity.Id, Is.EqualTo("A"));
@@ -164,7 +164,7 @@ public class EntityTest
         var maxValidCreatedAt = new CreatedAt(DateTime.UtcNow.AddDays(-1)); // Use a valid past date
 
         // Act
-        var entity = new TestEntityWithCustomInit(maxLengthId, maxValidCreatedAt);
+        var entity = new TestBaseEntityWithCustomInit(maxLengthId, maxValidCreatedAt);
 
         // Assert
         Assert.That((string)entity.Id, Is.EqualTo(new string('Z', Id.MaxLength)));
@@ -179,7 +179,7 @@ public class EntityTest
     public void Id_Property_ShouldBeInitOnly()
     {
         // Arrange
-        var entity = new TestEntity();
+        var entity = new TestBaseEntity();
         var originalId = (string)entity.Id;
 
         // Act & Assert - This test verifies that Id is init-only by compilation
@@ -194,7 +194,7 @@ public class EntityTest
     public void CreatedAt_Property_ShouldBeInitOnly()
     {
         // Arrange
-        var entity = new TestEntity();
+        var entity = new TestBaseEntity();
         var originalCreatedAt = (DateTime)entity.CreatedAt;
 
         // Act & Assert - This test verifies that CreatedAt is init-only by compilation
@@ -211,7 +211,7 @@ public class EntityTest
         // Arrange
         var customId = new Id("immutable-test");
         var customCreatedAt = new CreatedAt(DateTime.UtcNow.AddHours(-1));
-        var entity = new TestEntityWithCustomInit(customId, customCreatedAt);
+        var entity = new TestBaseEntityWithCustomInit(customId, customCreatedAt);
         
         var originalIdValue = (string)entity.Id;
         var originalCreatedAtValue = (DateTime)entity.CreatedAt;
@@ -239,8 +239,8 @@ public class EntityTest
         // Arrange
         var id = new Id("same-id");
         var createdAt = new CreatedAt(DateTime.UtcNow);
-        var entity1 = new TestEntityWithCustomInit(id, createdAt);
-        var entity2 = new TestEntityWithCustomInit(id, createdAt);
+        var entity1 = new TestBaseEntityWithCustomInit(id, createdAt);
+        var entity2 = new TestBaseEntityWithCustomInit(id, createdAt);
 
         // Act & Assert
         Assert.That(entity1, Is.Not.EqualTo(entity2));
@@ -252,7 +252,7 @@ public class EntityTest
     public void Entity_ShouldEqualItself()
     {
         // Arrange
-        var entity = new TestEntity();
+        var entity = new TestBaseEntity();
         var sameEntityReference = entity;
 
         // Act & Assert
@@ -266,8 +266,8 @@ public class EntityTest
     {
         // Arrange
         var createdAt = new CreatedAt(DateTime.UtcNow);
-        var entity1 = new TestEntityWithCustomInit(new Id("id-1"), createdAt);
-        var entity2 = new TestEntityWithCustomInit(new Id("id-2"), createdAt);
+        var entity1 = new TestBaseEntityWithCustomInit(new Id("id-1"), createdAt);
+        var entity2 = new TestBaseEntityWithCustomInit(new Id("id-2"), createdAt);
 
         // Act & Assert
         Assert.That(entity1, Is.Not.EqualTo(entity2));
@@ -279,8 +279,8 @@ public class EntityTest
     {
         // Arrange
         var id = new Id("same-id");
-        var entity1 = new TestEntityWithCustomInit(id, new CreatedAt(DateTime.UtcNow.AddDays(-1)));
-        var entity2 = new TestEntityWithCustomInit(id, new CreatedAt(DateTime.UtcNow));
+        var entity1 = new TestBaseEntityWithCustomInit(id, new CreatedAt(DateTime.UtcNow.AddDays(-1)));
+        var entity2 = new TestBaseEntityWithCustomInit(id, new CreatedAt(DateTime.UtcNow));
 
         // Act & Assert
         Assert.That(entity1, Is.Not.EqualTo(entity2));
@@ -295,10 +295,10 @@ public class EntityTest
     public void DefaultInitialization_ShouldNeverProduceNullId()
     {
         // Arrange & Act
-        var entities = new TestEntity[100];
+        var entities = new TestBaseEntity[100];
         for (int i = 0; i < entities.Length; i++)
         {
-            entities[i] = new TestEntity();
+            entities[i] = new TestBaseEntity();
         }
 
         // Assert
@@ -314,10 +314,10 @@ public class EntityTest
     public void DefaultInitialization_ShouldNeverProduceNullCreatedAt()
     {
         // Arrange & Act
-        var entities = new TestEntity[100];
+        var entities = new TestBaseEntity[100];
         for (int i = 0; i < entities.Length; i++)
         {
-            entities[i] = new TestEntity();
+            entities[i] = new TestBaseEntity();
         }
 
         // Assert
@@ -337,13 +337,13 @@ public class EntityTest
     {
         // Arrange
         const int entityCount = 1000;
-        var entities = new TestEntity[entityCount];
+        var entities = new TestBaseEntity[entityCount];
         var idSet = new HashSet<string>();
 
         // Act
         for (int i = 0; i < entityCount; i++)
         {
-            entities[i] = new TestEntity();
+            entities[i] = new TestBaseEntity();
             idSet.Add(entities[i].Id);
         }
 
@@ -355,7 +355,7 @@ public class EntityTest
     public void Entity_PropertiesAccessibility_ShouldBePublic()
     {
         // Arrange
-        var entity = new TestEntity();
+        var entity = new TestBaseEntity();
 
         // Act & Assert - Test that properties are publicly accessible
         Assert.DoesNotThrow(() =>
@@ -371,12 +371,12 @@ public class EntityTest
     public void Entity_ShouldBeInstantiableFromInheritance()
     {
         // Arrange & Act
-        TestEntity? entity = null;
+        TestBaseEntity? entity = null;
         
         // Assert
-        Assert.DoesNotThrow(() => entity = new TestEntity());
+        Assert.DoesNotThrow(() => entity = new TestBaseEntity());
         Assert.That(entity, Is.Not.Null);
-        Assert.That(entity, Is.InstanceOf<Frametux.Shared.Core.Domain.Entity.Entity>());
+        Assert.That(entity, Is.InstanceOf<Frametux.Shared.Core.Domain.Entity.BaseEntity>());
     }
 
     [Test]
@@ -389,7 +389,7 @@ public class EntityTest
         // Act & Assert
         Assert.DoesNotThrow(() =>
         {
-            var entity = new TestEntityWithCustomInit(validId, validCreatedAt);
+            var entity = new TestBaseEntityWithCustomInit(validId, validCreatedAt);
             Assert.That(entity, Is.Not.Null);
             Assert.That((string)entity.Id, Is.EqualTo("valid-entity-id"));
         });
