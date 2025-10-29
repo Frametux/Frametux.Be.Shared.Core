@@ -21,11 +21,6 @@ public class Email
         Validator.ValidateAndThrow(normalizedValue);
         Value = normalizedValue;
     }
-
-    public Email()
-    {
-        throw new NotSupportedException("Email cannot be generated automatically. Use constructor with email value.");
-    }
     
     public static implicit operator string(Email email) => email.Value;
     public static implicit operator Email(string value) => new(value);

@@ -135,27 +135,6 @@ public class EmailTest
 
     #endregion
 
-    #region Parameterless Constructor Tests
-
-    [Test]
-    public void Constructor_Parameterless_ShouldThrowNotSupportedException()
-    {
-        // Act & Assert
-        // ReSharper disable once ObjectCreationAsStatement
-        Assert.Throws<NotSupportedException>(() => new Email());
-    }
-
-    [Test]
-    public void Constructor_Parameterless_ShouldHaveDescriptiveErrorMessage()
-    {
-        // Act & Assert
-        // ReSharper disable once ObjectCreationAsStatement
-        var exception = Assert.Throws<NotSupportedException>(() => new Email());
-        Assert.That(exception.Message, Does.Contain("Email cannot be generated automatically"));
-    }
-
-    #endregion
-
     #region Invalid Input Tests
 
     [Test]
