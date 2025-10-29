@@ -19,7 +19,7 @@ public class Email
     {
         var normalizedValue = value.ToLowerInvariant();
         Validator.ValidateAndThrow(normalizedValue);
-        Value = normalizedValue!;
+        Value = normalizedValue;
     }
 
     public Email()
