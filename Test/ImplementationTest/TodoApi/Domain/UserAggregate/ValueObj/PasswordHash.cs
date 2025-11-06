@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace TodoApi.Domain.UserAggregate.ValueObj;
 
-public class PasswordHash
+public record PasswordHash
 {
     #region Hash
 

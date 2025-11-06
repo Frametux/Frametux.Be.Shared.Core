@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Frametux.Shared.Core.Domain.ValueObj;
 
-public class CreatedAt
+public record CreatedAt
 {
     public DateTime Value { get; private init; }
     

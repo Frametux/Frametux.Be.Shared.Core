@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace TodoApi.Domain.UserAggregate.ValueObj;
 
-public class Password
+public record Password
 {
     public string Value { get; private init; }
     
@@ -21,6 +21,8 @@ public class Password
         Validator.ValidateAndThrow(value);
         Value = value;
     }
+    
+    public PasswordHash Hash() => new(Value);
     
     public static implicit operator string(Password password) => password.Value;
     public static implicit operator Password(string value) => new(value);

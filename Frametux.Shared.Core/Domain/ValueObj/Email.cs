@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Frametux.Shared.Core.Domain.ValueObj;
 
-public class Email
+public record Email
 {
     public string Value { get; private init; }
     

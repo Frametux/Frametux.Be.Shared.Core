@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Frametux.Shared.Core.Domain.ValueObj;
 
-public class Id
+public record Id
 {
     public string Value { get; private init; }
     
