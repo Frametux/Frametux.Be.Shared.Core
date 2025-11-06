@@ -4,8 +4,8 @@ namespace Frametux.Shared.Core.Domain.ValueObj;
 
 public record Email
 {
-    public string Value { get; private init; }
-    
+    public string Value { get; }
+     
     public const int MaxLength = 320;
     public static InlineValidator<string> Validator { get; } = new()
     {
