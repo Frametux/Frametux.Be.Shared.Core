@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Frametux.Shared.Core.Domain.ValueObj;
+namespace Frametux.Shared.Core.Domain.ValueObjs;
 
 public record Email
 {

@@ -1,5 +1,5 @@
 using FluentValidation;
-using Frametux.Shared.Core.Domain.ValueObj;
+using Frametux.Shared.Core.Domain.ValueObjs;
 
 namespace UnitTest.Domain.ValueObj;
 

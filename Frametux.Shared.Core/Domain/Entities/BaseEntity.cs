@@ -1,6 +1,6 @@
-using Frametux.Shared.Core.Domain.ValueObj;
+using Frametux.Shared.Core.Domain.ValueObjs;
 
-namespace Frametux.Shared.Core.Domain.Entity;
+namespace Frametux.Shared.Core.Domain.Entities;
 
 public abstract class BaseEntity
 {

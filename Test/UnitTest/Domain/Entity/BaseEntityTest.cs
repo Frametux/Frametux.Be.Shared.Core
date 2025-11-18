@@ -1,4 +1,5 @@
-using Frametux.Shared.Core.Domain.ValueObj;
+using Frametux.Shared.Core.Domain.Entities;
+using Frametux.Shared.Core.Domain.ValueObjs;
 
 namespace UnitTest.Domain.Entity;
 
@@ -10,7 +11,7 @@ public class BaseEntityTest
     /// <summary>
     /// Concrete test implementation of the abstract Entity class for testing purposes
     /// </summary>
-    private class TestBaseEntity : Frametux.Shared.Core.Domain.Entity.BaseEntity
+    private class TestBaseEntity : BaseEntity
     {
         // Empty implementation - inherits all Entity functionality
     }
@@ -18,7 +19,7 @@ public class BaseEntityTest
     /// <summary>
     /// Concrete test implementation with custom initialization
     /// </summary>
-    private class TestBaseEntityWithCustomInit : Frametux.Shared.Core.Domain.Entity.BaseEntity
+    private class TestBaseEntityWithCustomInit : BaseEntity
     {
         public TestBaseEntityWithCustomInit(Id id, CreatedAt createdAt)
         {
@@ -376,7 +377,7 @@ public class BaseEntityTest
         // Assert
         Assert.DoesNotThrow(() => entity = new TestBaseEntity());
         Assert.That(entity, Is.Not.Null);
-        Assert.That(entity, Is.InstanceOf<Frametux.Shared.Core.Domain.Entity.BaseEntity>());
+        Assert.That(entity, Is.InstanceOf<BaseEntity>());
     }
 
     [Test]
