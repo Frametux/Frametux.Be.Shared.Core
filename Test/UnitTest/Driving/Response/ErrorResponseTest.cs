@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Frametux.Shared.Core.Driving.Responses;
 using Frametux.Shared.Core.Driving.Responses.Error;
 
 namespace UnitTest.Driving.Response;
@@ -15,7 +16,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = "Error message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Assert
@@ -27,19 +28,19 @@ public class ErrorResponseTest
     {
         // Arrange
         const string expectedMessage = "Resource not found";
-        const ErrorType expectedType = ErrorType.NotFound;
+        const ResponseType expectedType = ResponseType.NotFound;
 
         // Act
         var response = new ErrorResponse
         {
             Message = expectedMessage,
-            ErrorType = expectedType
+            Type = expectedType
         };
 
         // Assert
         Assert.That(response.IsSuccess, Is.False);
         Assert.That(response.Message, Is.EqualTo(expectedMessage));
-        Assert.That(response.ErrorType, Is.EqualTo(expectedType));
+        Assert.That(response.Type, Is.EqualTo(expectedType));
     }
 
     [Test]
@@ -47,19 +48,19 @@ public class ErrorResponseTest
     {
         // Arrange
         const string expectedMessage = "Validation failed";
-        const ErrorType expectedType = ErrorType.ValidationFailed;
+        const ResponseType expectedType = ResponseType.ValidationFailed;
 
         // Act
         var response = new ErrorResponse
         {
             Message = expectedMessage,
-            ErrorType = expectedType
+            Type = expectedType
         };
 
         // Assert
         Assert.That(response.IsSuccess, Is.False);
         Assert.That(response.Message, Is.EqualTo(expectedMessage));
-        Assert.That(response.ErrorType, Is.EqualTo(expectedType));
+        Assert.That(response.Type, Is.EqualTo(expectedType));
     }
 
     [Test]
@@ -67,75 +68,75 @@ public class ErrorResponseTest
     {
         // Arrange
         const string expectedMessage = "Business logic failed";
-        const ErrorType expectedType = ErrorType.BusinessLogicFailed;
+        const ResponseType expectedType = ResponseType.BusinessLogicFailed;
 
         // Act
         var response = new ErrorResponse
         {
             Message = expectedMessage,
-            ErrorType = expectedType
+            Type = expectedType
         };
 
         // Assert
         Assert.That(response.IsSuccess, Is.False);
         Assert.That(response.Message, Is.EqualTo(expectedMessage));
-        Assert.That(response.ErrorType, Is.EqualTo(expectedType));
+        Assert.That(response.Type, Is.EqualTo(expectedType));
     }
 
     #endregion
 
-    #region ErrorType Property Tests
+    #region ResponseType Property Tests
 
     [Test]
-    public void ErrorType_WithNotFound_ShouldReturnCorrectValue()
+    public void ResponseType_WithNotFound_ShouldReturnCorrectValue()
     {
         // Arrange & Act
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Assert
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.NotFound));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.NotFound));
     }
 
     [Test]
-    public void ErrorType_WithValidationFailed_ShouldReturnCorrectValue()
+    public void ResponseType_WithValidationFailed_ShouldReturnCorrectValue()
     {
         // Arrange & Act
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
 
         // Assert
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.ValidationFailed));
     }
 
     [Test]
-    public void ErrorType_WithBusinessLogicFailed_ShouldReturnCorrectValue()
+    public void ResponseType_WithBusinessLogicFailed_ShouldReturnCorrectValue()
     {
         // Arrange & Act
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.BusinessLogicFailed
+            Type = ResponseType.BusinessLogicFailed
         };
 
         // Assert
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.BusinessLogicFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.BusinessLogicFailed));
     }
 
     [Test]
-    public void ErrorType_JsonSerialization_ShouldSerializeAsString()
+    public void ResponseType_JsonSerialization_ShouldSerializeAsString()
     {
         // Arrange
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
 
         // Act
@@ -143,32 +144,32 @@ public class ErrorResponseTest
 
         // Assert
         Assert.That(json, Does.Contain("\"ValidationFailed\""));
-        Assert.That(json, Does.Not.Contain("\"ErrorType\":1"));
+        Assert.That(json, Does.Not.Contain("\"Type\":1"));
     }
 
     [Test]
-    public void ErrorType_JsonDeserialization_ShouldDeserializeFromString()
+    public void ResponseType_JsonDeserialization_ShouldDeserializeFromString()
     {
         // Arrange
-        const string json = "{\"IsSuccess\":false,\"Message\":\"Test message\",\"ErrorType\":\"NotFound\"}";
+        const string json = "{\"IsSuccess\":false,\"Type\":\"NotFound\",\"Message\":\"Test message\"}";
 
         // Act
         var response = JsonSerializer.Deserialize<ErrorResponse>(json);
 
         // Assert
         Assert.That(response, Is.Not.Null);
-        Assert.That(response!.ErrorType, Is.EqualTo(ErrorType.NotFound));
+        Assert.That(response!.Type, Is.EqualTo(ResponseType.NotFound));
         Assert.That(response.Message, Is.EqualTo("Test message"));
         Assert.That(response.IsSuccess, Is.False);
     }
 
     [Test]
-    public void ErrorType_EnumValues_ShouldHaveCorrectUnderlyingValues()
+    public void ResponseType_EnumValues_ShouldHaveCorrectUnderlyingValues()
     {
         // Assert
-        Assert.That((int)ErrorType.NotFound, Is.EqualTo(0));
-        Assert.That((int)ErrorType.ValidationFailed, Is.EqualTo(1));
-        Assert.That((int)ErrorType.BusinessLogicFailed, Is.EqualTo(2));
+        Assert.That((int)ResponseType.NotFound, Is.EqualTo(2));
+        Assert.That((int)ResponseType.ValidationFailed, Is.EqualTo(3));
+        Assert.That((int)ResponseType.BusinessLogicFailed, Is.EqualTo(4));
     }
 
     #endregion
@@ -185,7 +186,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = expectedMessage,
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Assert
@@ -199,7 +200,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = string.Empty,
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
 
         // Assert
@@ -216,7 +217,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = longMessage,
-            ErrorType = ErrorType.BusinessLogicFailed
+            Type = ResponseType.BusinessLogicFailed
         };
 
         // Assert
@@ -235,12 +236,12 @@ public class ErrorResponseTest
         var response1 = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
         var response2 = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act & Assert
@@ -250,18 +251,18 @@ public class ErrorResponseTest
     }
 
     [Test]
-    public void Equality_WithDifferentErrorType_ShouldNotBeEqual()
+    public void Equality_WithDifferentResponseType_ShouldNotBeEqual()
     {
         // Arrange
         var response1 = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
         var response2 = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
 
         // Act & Assert
@@ -276,12 +277,12 @@ public class ErrorResponseTest
         var response1 = new ErrorResponse
         {
             Message = "Message 1",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
         var response2 = new ErrorResponse
         {
             Message = "Message 2",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act & Assert
@@ -290,18 +291,18 @@ public class ErrorResponseTest
     }
 
     [Test]
-    public void Equality_WithDifferentMessageAndErrorType_ShouldNotBeEqual()
+    public void Equality_WithDifferentMessageAndResponseType_ShouldNotBeEqual()
     {
         // Arrange
         var response1 = new ErrorResponse
         {
             Message = "Message 1",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
         var response2 = new ErrorResponse
         {
             Message = "Message 2",
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
 
         // Act & Assert
@@ -316,7 +317,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act & Assert
@@ -332,7 +333,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
         var sameReference = response;
 
@@ -354,7 +355,7 @@ public class ErrorResponseTest
         var original = new ErrorResponse
         {
             Message = "Original message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act
@@ -363,27 +364,27 @@ public class ErrorResponseTest
         // Assert
         Assert.That(modified.Message, Is.EqualTo("Modified message"));
         Assert.That(original.Message, Is.EqualTo("Original message"));
-        Assert.That(modified.ErrorType, Is.EqualTo(original.ErrorType));
+        Assert.That(modified.Type, Is.EqualTo(original.Type));
         Assert.That(modified.IsSuccess, Is.EqualTo(original.IsSuccess));
         Assert.That(ReferenceEquals(original, modified), Is.False);
     }
 
     [Test]
-    public void WithExpression_ModifyingErrorType_ShouldCreateNewInstance()
+    public void WithExpression_ModifyingResponseType_ShouldCreateNewInstance()
     {
         // Arrange
         var original = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act
-        var modified = original with { ErrorType = ErrorType.ValidationFailed };
+        var modified = original with { Type = ResponseType.ValidationFailed };
 
         // Assert
-        Assert.That(modified.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
-        Assert.That(original.ErrorType, Is.EqualTo(ErrorType.NotFound));
+        Assert.That(modified.Type, Is.EqualTo(ResponseType.ValidationFailed));
+        Assert.That(original.Type, Is.EqualTo(ResponseType.NotFound));
         Assert.That(modified.Message, Is.EqualTo(original.Message));
         Assert.That(modified.IsSuccess, Is.EqualTo(original.IsSuccess));
         Assert.That(ReferenceEquals(original, modified), Is.False);
@@ -396,21 +397,21 @@ public class ErrorResponseTest
         var original = new ErrorResponse
         {
             Message = "Original message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act
         var modified = original with
         {
             Message = "Modified message",
-            ErrorType = ErrorType.BusinessLogicFailed
+            Type = ResponseType.BusinessLogicFailed
         };
 
         // Assert
         Assert.That(modified.Message, Is.EqualTo("Modified message"));
-        Assert.That(modified.ErrorType, Is.EqualTo(ErrorType.BusinessLogicFailed));
+        Assert.That(modified.Type, Is.EqualTo(ResponseType.BusinessLogicFailed));
         Assert.That(original.Message, Is.EqualTo("Original message"));
-        Assert.That(original.ErrorType, Is.EqualTo(ErrorType.NotFound));
+        Assert.That(original.Type, Is.EqualTo(ResponseType.NotFound));
         Assert.That(modified.IsSuccess, Is.False);
         Assert.That(ReferenceEquals(original, modified), Is.False);
     }
@@ -422,7 +423,7 @@ public class ErrorResponseTest
         var original = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
 
         // Act
@@ -430,7 +431,7 @@ public class ErrorResponseTest
 
         // Assert
         Assert.That(copy.Message, Is.EqualTo(original.Message));
-        Assert.That(copy.ErrorType, Is.EqualTo(original.ErrorType));
+        Assert.That(copy.Type, Is.EqualTo(original.Type));
         Assert.That(copy.IsSuccess, Is.EqualTo(original.IsSuccess));
         Assert.That(copy, Is.EqualTo(original));
         Assert.That(ReferenceEquals(original, copy), Is.False);
@@ -447,7 +448,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act
@@ -460,13 +461,13 @@ public class ErrorResponseTest
     }
 
     [Test]
-    public void ToString_WithValidationFailed_ShouldContainCorrectErrorType()
+    public void ToString_WithValidationFailed_ShouldContainCorrectResponseType()
     {
         // Arrange
         var response = new ErrorResponse
         {
             Message = "Validation error",
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
 
         // Act
@@ -479,13 +480,13 @@ public class ErrorResponseTest
     }
 
     [Test]
-    public void ToString_WithBusinessLogicFailed_ShouldContainCorrectErrorType()
+    public void ToString_WithBusinessLogicFailed_ShouldContainCorrectResponseType()
     {
         // Arrange
         var response = new ErrorResponse
         {
             Message = "Business logic error",
-            ErrorType = ErrorType.BusinessLogicFailed
+            Type = ResponseType.BusinessLogicFailed
         };
 
         // Act
@@ -504,7 +505,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = string.Empty,
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Act
@@ -526,7 +527,7 @@ public class ErrorResponseTest
         var response = new ErrorResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
 
         // Assert
@@ -540,17 +541,17 @@ public class ErrorResponseTest
         var response1 = new ErrorResponse
         {
             Message = "Test message 1",
-            ErrorType = ErrorType.NotFound
+            Type = ResponseType.NotFound
         };
         var response2 = new ErrorResponse
         {
             Message = "Test message 2",
-            ErrorType = ErrorType.ValidationFailed
+            Type = ResponseType.ValidationFailed
         };
         var response3 = new ErrorResponse
         {
             Message = "Test message 3",
-            ErrorType = ErrorType.BusinessLogicFailed
+            Type = ResponseType.BusinessLogicFailed
         };
 
         // Act & Assert
@@ -561,4 +562,5 @@ public class ErrorResponseTest
 
     #endregion
 }
+
 

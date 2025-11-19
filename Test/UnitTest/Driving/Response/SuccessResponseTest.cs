@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Frametux.Shared.Core.Driving.Responses;
 using Frametux.Shared.Core.Driving.Responses.Success;
 
 namespace UnitTest.Driving.Response;
@@ -15,7 +16,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = "Success message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Assert
@@ -27,19 +28,19 @@ public class SuccessResponseTest
     {
         // Arrange
         const string expectedMessage = "Data retrieved successfully";
-        const SuccessType expectedType = SuccessType.RetrieveDataSuccess;
+        const ResponseType expectedType = ResponseType.RetrieveDataSuccess;
 
         // Act
         var response = new SuccessResponse
         {
             Message = expectedMessage,
-            SuccessType = expectedType
+            Type = expectedType
         };
 
         // Assert
         Assert.That(response.IsSuccess, Is.True);
         Assert.That(response.Message, Is.EqualTo(expectedMessage));
-        Assert.That(response.SuccessType, Is.EqualTo(expectedType));
+        Assert.That(response.Type, Is.EqualTo(expectedType));
     }
 
     [Test]
@@ -47,61 +48,61 @@ public class SuccessResponseTest
     {
         // Arrange
         const string expectedMessage = "Resource created successfully";
-        const SuccessType expectedType = SuccessType.CreateSuccess;
+        const ResponseType expectedType = ResponseType.CreateSuccess;
 
         // Act
         var response = new SuccessResponse
         {
             Message = expectedMessage,
-            SuccessType = expectedType
+            Type = expectedType
         };
 
         // Assert
         Assert.That(response.IsSuccess, Is.True);
         Assert.That(response.Message, Is.EqualTo(expectedMessage));
-        Assert.That(response.SuccessType, Is.EqualTo(expectedType));
+        Assert.That(response.Type, Is.EqualTo(expectedType));
     }
 
     #endregion
 
-    #region SuccessType Property Tests
+    #region ResponseType Property Tests
 
     [Test]
-    public void SuccessType_WithRetrieveDataSuccess_ShouldReturnCorrectValue()
+    public void ResponseType_WithRetrieveDataSuccess_ShouldReturnCorrectValue()
     {
         // Arrange & Act
         var response = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.RetrieveDataSuccess
+            Type = ResponseType.RetrieveDataSuccess
         };
 
         // Assert
-        Assert.That(response.SuccessType, Is.EqualTo(SuccessType.RetrieveDataSuccess));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.RetrieveDataSuccess));
     }
 
     [Test]
-    public void SuccessType_WithCreateSuccess_ShouldReturnCorrectValue()
+    public void ResponseType_WithCreateSuccess_ShouldReturnCorrectValue()
     {
         // Arrange & Act
         var response = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Assert
-        Assert.That(response.SuccessType, Is.EqualTo(SuccessType.CreateSuccess));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.CreateSuccess));
     }
 
     [Test]
-    public void SuccessType_JsonSerialization_ShouldSerializeAsString()
+    public void ResponseType_JsonSerialization_ShouldSerializeAsString()
     {
         // Arrange
         var response = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act
@@ -109,31 +110,31 @@ public class SuccessResponseTest
 
         // Assert
         Assert.That(json, Does.Contain("\"CreateSuccess\""));
-        Assert.That(json, Does.Not.Contain("\"SuccessType\":1"));
+        Assert.That(json, Does.Not.Contain("\"Type\":1"));
     }
 
     [Test]
-    public void SuccessType_JsonDeserialization_ShouldDeserializeFromString()
+    public void ResponseType_JsonDeserialization_ShouldDeserializeFromString()
     {
         // Arrange
-        const string json = "{\"IsSuccess\":true,\"Message\":\"Test message\",\"SuccessType\":\"RetrieveDataSuccess\"}";
+        const string json = "{\"IsSuccess\":true,\"Type\":\"RetrieveDataSuccess\",\"Message\":\"Test message\"}";
 
         // Act
         var response = JsonSerializer.Deserialize<SuccessResponse>(json);
 
         // Assert
         Assert.That(response, Is.Not.Null);
-        Assert.That(response!.SuccessType, Is.EqualTo(SuccessType.RetrieveDataSuccess));
+        Assert.That(response!.Type, Is.EqualTo(ResponseType.RetrieveDataSuccess));
         Assert.That(response.Message, Is.EqualTo("Test message"));
         Assert.That(response.IsSuccess, Is.True);
     }
 
     [Test]
-    public void SuccessType_EnumValues_ShouldHaveCorrectUnderlyingValues()
+    public void ResponseType_EnumValues_ShouldHaveCorrectUnderlyingValues()
     {
         // Assert
-        Assert.That((int)SuccessType.RetrieveDataSuccess, Is.EqualTo(0));
-        Assert.That((int)SuccessType.CreateSuccess, Is.EqualTo(1));
+        Assert.That((int)ResponseType.RetrieveDataSuccess, Is.EqualTo(0));
+        Assert.That((int)ResponseType.CreateSuccess, Is.EqualTo(1));
     }
 
     #endregion
@@ -150,7 +151,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = expectedMessage,
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Assert
@@ -164,7 +165,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = string.Empty,
-            SuccessType = SuccessType.RetrieveDataSuccess
+            Type = ResponseType.RetrieveDataSuccess
         };
 
         // Assert
@@ -181,7 +182,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = longMessage,
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Assert
@@ -200,12 +201,12 @@ public class SuccessResponseTest
         var response1 = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
         var response2 = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act & Assert
@@ -215,18 +216,18 @@ public class SuccessResponseTest
     }
 
     [Test]
-    public void Equality_WithDifferentSuccessType_ShouldNotBeEqual()
+    public void Equality_WithDifferentResponseType_ShouldNotBeEqual()
     {
         // Arrange
         var response1 = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
         var response2 = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.RetrieveDataSuccess
+            Type = ResponseType.RetrieveDataSuccess
         };
 
         // Act & Assert
@@ -241,12 +242,12 @@ public class SuccessResponseTest
         var response1 = new SuccessResponse
         {
             Message = "Message 1",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
         var response2 = new SuccessResponse
         {
             Message = "Message 2",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act & Assert
@@ -255,18 +256,18 @@ public class SuccessResponseTest
     }
 
     [Test]
-    public void Equality_WithDifferentMessageAndSuccessType_ShouldNotBeEqual()
+    public void Equality_WithDifferentMessageAndResponseType_ShouldNotBeEqual()
     {
         // Arrange
         var response1 = new SuccessResponse
         {
             Message = "Message 1",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
         var response2 = new SuccessResponse
         {
             Message = "Message 2",
-            SuccessType = SuccessType.RetrieveDataSuccess
+            Type = ResponseType.RetrieveDataSuccess
         };
 
         // Act & Assert
@@ -281,7 +282,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act & Assert
@@ -297,7 +298,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
         var sameReference = response;
 
@@ -319,7 +320,7 @@ public class SuccessResponseTest
         var original = new SuccessResponse
         {
             Message = "Original message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act
@@ -328,27 +329,27 @@ public class SuccessResponseTest
         // Assert
         Assert.That(modified.Message, Is.EqualTo("Modified message"));
         Assert.That(original.Message, Is.EqualTo("Original message"));
-        Assert.That(modified.SuccessType, Is.EqualTo(original.SuccessType));
+        Assert.That(modified.Type, Is.EqualTo(original.Type));
         Assert.That(modified.IsSuccess, Is.EqualTo(original.IsSuccess));
         Assert.That(ReferenceEquals(original, modified), Is.False);
     }
 
     [Test]
-    public void WithExpression_ModifyingSuccessType_ShouldCreateNewInstance()
+    public void WithExpression_ModifyingResponseType_ShouldCreateNewInstance()
     {
         // Arrange
         var original = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act
-        var modified = original with { SuccessType = SuccessType.RetrieveDataSuccess };
+        var modified = original with { Type = ResponseType.RetrieveDataSuccess };
 
         // Assert
-        Assert.That(modified.SuccessType, Is.EqualTo(SuccessType.RetrieveDataSuccess));
-        Assert.That(original.SuccessType, Is.EqualTo(SuccessType.CreateSuccess));
+        Assert.That(modified.Type, Is.EqualTo(ResponseType.RetrieveDataSuccess));
+        Assert.That(original.Type, Is.EqualTo(ResponseType.CreateSuccess));
         Assert.That(modified.Message, Is.EqualTo(original.Message));
         Assert.That(modified.IsSuccess, Is.EqualTo(original.IsSuccess));
         Assert.That(ReferenceEquals(original, modified), Is.False);
@@ -361,21 +362,21 @@ public class SuccessResponseTest
         var original = new SuccessResponse
         {
             Message = "Original message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act
         var modified = original with
         {
             Message = "Modified message",
-            SuccessType = SuccessType.RetrieveDataSuccess
+            Type = ResponseType.RetrieveDataSuccess
         };
 
         // Assert
         Assert.That(modified.Message, Is.EqualTo("Modified message"));
-        Assert.That(modified.SuccessType, Is.EqualTo(SuccessType.RetrieveDataSuccess));
+        Assert.That(modified.Type, Is.EqualTo(ResponseType.RetrieveDataSuccess));
         Assert.That(original.Message, Is.EqualTo("Original message"));
-        Assert.That(original.SuccessType, Is.EqualTo(SuccessType.CreateSuccess));
+        Assert.That(original.Type, Is.EqualTo(ResponseType.CreateSuccess));
         Assert.That(modified.IsSuccess, Is.True);
         Assert.That(ReferenceEquals(original, modified), Is.False);
     }
@@ -387,7 +388,7 @@ public class SuccessResponseTest
         var original = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act
@@ -395,7 +396,7 @@ public class SuccessResponseTest
 
         // Assert
         Assert.That(copy.Message, Is.EqualTo(original.Message));
-        Assert.That(copy.SuccessType, Is.EqualTo(original.SuccessType));
+        Assert.That(copy.Type, Is.EqualTo(original.Type));
         Assert.That(copy.IsSuccess, Is.EqualTo(original.IsSuccess));
         Assert.That(copy, Is.EqualTo(original));
         Assert.That(ReferenceEquals(original, copy), Is.False);
@@ -412,7 +413,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act
@@ -425,13 +426,13 @@ public class SuccessResponseTest
     }
 
     [Test]
-    public void ToString_WithRetrieveDataSuccess_ShouldContainCorrectSuccessType()
+    public void ToString_WithRetrieveDataSuccess_ShouldContainCorrectResponseType()
     {
         // Arrange
         var response = new SuccessResponse
         {
             Message = "Data retrieved",
-            SuccessType = SuccessType.RetrieveDataSuccess
+            Type = ResponseType.RetrieveDataSuccess
         };
 
         // Act
@@ -450,7 +451,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = string.Empty,
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Act
@@ -472,7 +473,7 @@ public class SuccessResponseTest
         var response = new SuccessResponse
         {
             Message = "Test message",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
 
         // Assert
@@ -486,12 +487,12 @@ public class SuccessResponseTest
         var response1 = new SuccessResponse
         {
             Message = "Test message 1",
-            SuccessType = SuccessType.CreateSuccess
+            Type = ResponseType.CreateSuccess
         };
         var response2 = new SuccessResponse
         {
             Message = "Test message 2",
-            SuccessType = SuccessType.RetrieveDataSuccess
+            Type = ResponseType.RetrieveDataSuccess
         };
 
         // Act & Assert

@@ -20,6 +20,7 @@ public class BaseResponseTest
         // Arrange & Act
         var response = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Success message"
         };
 
@@ -33,6 +34,7 @@ public class BaseResponseTest
         // Arrange & Act
         var response = new TestResponse(false)
         {
+            Type = ResponseType.NotFound,
             Message = "Error message"
         };
 
@@ -53,6 +55,7 @@ public class BaseResponseTest
         // Act
         var response = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = expectedMessage
         };
 
@@ -66,6 +69,7 @@ public class BaseResponseTest
         // Arrange & Act
         var response = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = string.Empty
         };
 
@@ -83,10 +87,12 @@ public class BaseResponseTest
         // Arrange
         var response1 = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Test message"
         };
         var response2 = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Test message"
         };
 
@@ -102,10 +108,12 @@ public class BaseResponseTest
         // Arrange
         var response1 = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Test message"
         };
         var response2 = new TestResponse(false)
         {
+            Type = ResponseType.NotFound,
             Message = "Test message"
         };
 
@@ -120,10 +128,12 @@ public class BaseResponseTest
         // Arrange
         var response1 = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Message 1"
         };
         var response2 = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Message 2"
         };
 
@@ -138,6 +148,7 @@ public class BaseResponseTest
         // Arrange
         var response = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Test message"
         };
 
@@ -157,6 +168,7 @@ public class BaseResponseTest
         // Arrange
         var original = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Original message"
         };
 
@@ -176,6 +188,7 @@ public class BaseResponseTest
         // Arrange
         var original = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Test message"
         };
 
@@ -199,6 +212,7 @@ public class BaseResponseTest
         // Arrange
         var response = new TestResponse(true)
         {
+            Type = ResponseType.CreateSuccess,
             Message = "Test message"
         };
 
@@ -217,6 +231,7 @@ public class BaseResponseTest
         // Arrange
         var response = new TestResponse(false)
         {
+            Type = ResponseType.NotFound,
             Message = "Error message"
         };
 

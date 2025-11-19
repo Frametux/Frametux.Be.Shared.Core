@@ -12,7 +12,7 @@ public record ErrorWithDetailsResponse : ErrorResponse
         return new ErrorWithDetailsResponse
         {
             Message = "Validation Failed.",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = validationResult.Errors
                 .GroupBy(failure => failure.PropertyName)
                 .Select(group =>
@@ -30,10 +30,12 @@ public record ErrorWithDetailsResponse : ErrorResponse
         };
     }
 
-    public static ErrorWithDetailsResponse ToErrorResponse<TExc>(string fieldName, ErrorType errorType, TExc exc) where TExc : IExcHasErrorCode
+    public static ErrorWithDetailsResponse ToErrorResponse<TExc>(string fieldName, TExc exc) where TExc : IExcHasErrorCode
     {
         return new ErrorWithDetailsResponse
         {
+            Message = exc.Message,
+            Type = ResponseType.BusinessLogicFailed,
             Errors =
             [
                 new Error
@@ -49,8 +51,6 @@ public record ErrorWithDetailsResponse : ErrorResponse
                     ]
                 }
             ],
-            Message = exc.Message,
-            ErrorType = errorType
         };
     }
 }

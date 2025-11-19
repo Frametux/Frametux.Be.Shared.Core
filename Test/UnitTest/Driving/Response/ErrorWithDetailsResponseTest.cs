@@ -1,6 +1,7 @@
 using System.Text.Json;
 using FluentValidation.Results;
 using Frametux.Shared.Core.Domain.Exceptions;
+using Frametux.Shared.Core.Driving.Responses;
 using Frametux.Shared.Core.Driving.Responses.Error;
 
 namespace UnitTest.Driving.Response;
@@ -33,7 +34,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Error message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
@@ -46,7 +47,7 @@ public class ErrorWithDetailsResponseTest
     {
         // Arrange
         const string expectedMessage = "Validation failed";
-        const ErrorType expectedType = ErrorType.ValidationFailed;
+        const ResponseType expectedType = ResponseType.ValidationFailed;
         var expectedErrors = new List<Error>
         {
             new Error
@@ -60,14 +61,14 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = expectedMessage,
-            ErrorType = expectedType,
+            Type = expectedType,
             Errors = expectedErrors
         };
 
         // Assert
         Assert.That(response.IsSuccess, Is.False);
         Assert.That(response.Message, Is.EqualTo(expectedMessage));
-        Assert.That(response.ErrorType, Is.EqualTo(expectedType));
+        Assert.That(response.Type, Is.EqualTo(expectedType));
         Assert.That(response.Errors, Is.EqualTo(expectedErrors));
     }
 
@@ -78,14 +79,14 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
         // Assert
         Assert.That(response.Errors, Is.Empty);
         Assert.That(response.Message, Is.EqualTo("Test message"));
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.ValidationFailed));
     }
 
     [Test]
@@ -110,7 +111,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Multiple errors",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = expectedErrors
         };
 
@@ -138,7 +139,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = [error]
         };
 
@@ -166,7 +167,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Validation Failed",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = [error]
         };
 
@@ -193,7 +194,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Validation Failed",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
@@ -219,7 +220,7 @@ public class ErrorWithDetailsResponseTest
 
         // Assert
         Assert.That(response.Message, Is.EqualTo("Validation Failed."));
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.ValidationFailed));
         Assert.That(response.Errors, Is.Empty);
         Assert.That(response.IsSuccess, Is.False);
     }
@@ -241,7 +242,7 @@ public class ErrorWithDetailsResponseTest
 
         // Assert
         Assert.That(response.Message, Is.EqualTo("Validation Failed."));
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.ValidationFailed));
         Assert.That(response.Errors.Count, Is.EqualTo(1));
         Assert.That(response.Errors[0].Field, Is.EqualTo("Email"));
         Assert.That(response.Errors[0].Errors.Count, Is.EqualTo(1));
@@ -274,7 +275,7 @@ public class ErrorWithDetailsResponseTest
 
         // Assert
         Assert.That(response.Message, Is.EqualTo("Validation Failed."));
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.ValidationFailed));
         Assert.That(response.Errors.Count, Is.EqualTo(1));
         Assert.That(response.Errors[0].Field, Is.EqualTo("Password"));
         Assert.That(response.Errors[0].Errors.Count, Is.EqualTo(3));
@@ -367,14 +368,13 @@ public class ErrorWithDetailsResponseTest
         // Arrange
         var exception = new MockException("DUPLICATE_EMAIL", "Email already exists");
         const string fieldName = "Email";
-        const ErrorType errorType = ErrorType.BusinessLogicFailed;
 
         // Act
-        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, errorType, exception);
+        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, exception);
 
         // Assert
         Assert.That(response.Message, Is.EqualTo("Email already exists"));
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.BusinessLogicFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.BusinessLogicFailed));
         Assert.That(response.Errors.Count, Is.EqualTo(1));
         Assert.That(response.Errors[0].Field, Is.EqualTo("Email"));
         Assert.That(response.Errors[0].Errors.Count, Is.EqualTo(1));
@@ -384,34 +384,32 @@ public class ErrorWithDetailsResponseTest
     }
 
     [Test]
-    public void ToErrorResponse_WithException_NotFoundErrorType_ShouldSetCorrectErrorType()
+    public void ToErrorResponse_WithException_NotFoundResponseType_ShouldSetCorrectResponseType()
     {
         // Arrange
         var exception = new MockException("NOT_FOUND", "User not found");
         const string fieldName = "UserId";
-        const ErrorType errorType = ErrorType.NotFound;
 
         // Act
-        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, errorType, exception);
+        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, exception);
 
         // Assert
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.NotFound));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.BusinessLogicFailed));
         Assert.That(response.Message, Is.EqualTo("User not found"));
     }
 
     [Test]
-    public void ToErrorResponse_WithException_ValidationFailedErrorType_ShouldSetCorrectErrorType()
+    public void ToErrorResponse_WithException_ValidationFailedResponseType_ShouldSetCorrectResponseType()
     {
         // Arrange
         var exception = new MockException("INVALID_FORMAT", "Invalid email format");
         const string fieldName = "Email";
-        const ErrorType errorType = ErrorType.ValidationFailed;
 
         // Act
-        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, errorType, exception);
+        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, exception);
 
         // Assert
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.BusinessLogicFailed));
         Assert.That(response.Message, Is.EqualTo("Invalid email format"));
     }
 
@@ -423,7 +421,7 @@ public class ErrorWithDetailsResponseTest
         const string fieldName = "Password";
 
         // Act
-        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, ErrorType.BusinessLogicFailed, exception);
+        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, exception);
 
         // Assert
         Assert.That(response.Errors[0].Field, Is.EqualTo("Password"));
@@ -437,7 +435,7 @@ public class ErrorWithDetailsResponseTest
         const string fieldName = "Token";
 
         // Act
-        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, ErrorType.BusinessLogicFailed, exception);
+        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, exception);
 
         // Assert
         Assert.That(response.Errors[0].Errors[0].Code, Is.EqualTo("EXPIRED_TOKEN"));
@@ -451,7 +449,7 @@ public class ErrorWithDetailsResponseTest
         const string fieldName = "Permissions";
 
         // Act
-        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, ErrorType.BusinessLogicFailed, exception);
+        var response = ErrorWithDetailsResponse.ToErrorResponse(fieldName, exception);
 
         // Assert
         Assert.That(response.Errors[0].Errors[0].Message, Is.EqualTo("User lacks required permissions"));
@@ -614,14 +612,14 @@ public class ErrorWithDetailsResponseTest
         var response1 = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
         var response2 = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
@@ -656,14 +654,14 @@ public class ErrorWithDetailsResponseTest
         var response1 = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors1
         };
 
         var response2 = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors2
         };
 
@@ -688,14 +686,14 @@ public class ErrorWithDetailsResponseTest
         var response1 = new ErrorWithDetailsResponse
         {
             Message = "Message 1",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
         var response2 = new ErrorWithDetailsResponse
         {
             Message = "Message 2",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
@@ -705,7 +703,7 @@ public class ErrorWithDetailsResponseTest
     }
 
     [Test]
-    public void Equality_WithDifferentErrorType_ShouldNotBeEqual()
+    public void Equality_WithDifferentResponseType_ShouldNotBeEqual()
     {
         // Arrange
         var errors = new List<Error>
@@ -720,14 +718,14 @@ public class ErrorWithDetailsResponseTest
         var response1 = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
         var response2 = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.BusinessLogicFailed,
+            Type = ResponseType.BusinessLogicFailed,
             Errors = errors
         };
 
@@ -743,7 +741,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
@@ -760,7 +758,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
         var sameReference = response;
@@ -779,14 +777,14 @@ public class ErrorWithDetailsResponseTest
         var response1 = new ErrorWithDetailsResponse
         {
             Message = "Test",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
         var response2 = new ErrorWithDetailsResponse
         {
             Message = "Test",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
@@ -804,14 +802,14 @@ public class ErrorWithDetailsResponseTest
         var response1 = new ErrorWithDetailsResponse
         {
             Message = "Test",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = sharedErrors
         };
 
         var response2 = new ErrorWithDetailsResponse
         {
             Message = "Test",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = sharedErrors
         };
 
@@ -839,7 +837,7 @@ public class ErrorWithDetailsResponseTest
         var original = new ErrorWithDetailsResponse
         {
             Message = "Original message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = originalErrors
         };
 
@@ -859,7 +857,7 @@ public class ErrorWithDetailsResponseTest
         Assert.That(modified.Errors, Is.EqualTo(newErrors));
         Assert.That(original.Errors, Is.EqualTo(originalErrors));
         Assert.That(modified.Message, Is.EqualTo(original.Message));
-        Assert.That(modified.ErrorType, Is.EqualTo(original.ErrorType));
+        Assert.That(modified.Type, Is.EqualTo(original.Type));
         Assert.That(ReferenceEquals(original, modified), Is.False);
     }
 
@@ -879,7 +877,7 @@ public class ErrorWithDetailsResponseTest
         var original = new ErrorWithDetailsResponse
         {
             Message = "Original message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
@@ -890,12 +888,12 @@ public class ErrorWithDetailsResponseTest
         Assert.That(modified.Message, Is.EqualTo("Modified message"));
         Assert.That(original.Message, Is.EqualTo("Original message"));
         Assert.That(modified.Errors, Is.EqualTo(original.Errors));
-        Assert.That(modified.ErrorType, Is.EqualTo(original.ErrorType));
+        Assert.That(modified.Type, Is.EqualTo(original.Type));
         Assert.That(ReferenceEquals(original, modified), Is.False);
     }
 
     [Test]
-    public void WithExpression_ModifyingErrorType_ShouldCreateNewInstance()
+    public void WithExpression_ModifyingResponseType_ShouldCreateNewInstance()
     {
         // Arrange
         var errors = new List<Error>
@@ -910,16 +908,16 @@ public class ErrorWithDetailsResponseTest
         var original = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
         // Act
-        var modified = original with { ErrorType = ErrorType.BusinessLogicFailed };
+        var modified = original with { Type = ResponseType.BusinessLogicFailed };
 
         // Assert
-        Assert.That(modified.ErrorType, Is.EqualTo(ErrorType.BusinessLogicFailed));
-        Assert.That(original.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(modified.Type, Is.EqualTo(ResponseType.BusinessLogicFailed));
+        Assert.That(original.Type, Is.EqualTo(ResponseType.ValidationFailed));
         Assert.That(modified.Message, Is.EqualTo(original.Message));
         Assert.That(modified.Errors, Is.EqualTo(original.Errors));
         Assert.That(ReferenceEquals(original, modified), Is.False);
@@ -941,7 +939,7 @@ public class ErrorWithDetailsResponseTest
         var original = new ErrorWithDetailsResponse
         {
             Message = "Original message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = originalErrors
         };
 
@@ -958,16 +956,16 @@ public class ErrorWithDetailsResponseTest
         var modified = original with
         {
             Message = "Modified message",
-            ErrorType = ErrorType.BusinessLogicFailed,
+            Type = ResponseType.BusinessLogicFailed,
             Errors = newErrors
         };
 
         // Assert
         Assert.That(modified.Message, Is.EqualTo("Modified message"));
-        Assert.That(modified.ErrorType, Is.EqualTo(ErrorType.BusinessLogicFailed));
+        Assert.That(modified.Type, Is.EqualTo(ResponseType.BusinessLogicFailed));
         Assert.That(modified.Errors, Is.EqualTo(newErrors));
         Assert.That(original.Message, Is.EqualTo("Original message"));
-        Assert.That(original.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(original.Type, Is.EqualTo(ResponseType.ValidationFailed));
         Assert.That(original.Errors, Is.EqualTo(originalErrors));
         Assert.That(ReferenceEquals(original, modified), Is.False);
     }
@@ -988,7 +986,7 @@ public class ErrorWithDetailsResponseTest
         var original = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = errors
         };
 
@@ -997,7 +995,7 @@ public class ErrorWithDetailsResponseTest
 
         // Assert
         Assert.That(copy.Message, Is.EqualTo(original.Message));
-        Assert.That(copy.ErrorType, Is.EqualTo(original.ErrorType));
+        Assert.That(copy.Type, Is.EqualTo(original.Type));
         Assert.That(copy.Errors, Is.EqualTo(original.Errors));
         Assert.That(copy, Is.EqualTo(original));
         Assert.That(ReferenceEquals(original, copy), Is.False);
@@ -1014,7 +1012,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Validation Failed.",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors =
             [
                 new Error
@@ -1043,7 +1041,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Validation Failed.",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors =
             [
                 new Error
@@ -1080,7 +1078,7 @@ public class ErrorWithDetailsResponseTest
         const string json = @"{
             ""IsSuccess"": false,
             ""Message"": ""Validation Failed."",
-            ""ErrorType"": ""ValidationFailed"",
+            ""Type"": ""ValidationFailed"",
             ""Errors"": [
                 {
                     ""Field"": ""Email"",
@@ -1101,7 +1099,7 @@ public class ErrorWithDetailsResponseTest
         Assert.That(response, Is.Not.Null);
         Assert.That(response!.IsSuccess, Is.False);
         Assert.That(response.Message, Is.EqualTo("Validation Failed."));
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        Assert.That(response.Type, Is.EqualTo(ResponseType.ValidationFailed));
         Assert.That(response.Errors.Count, Is.EqualTo(1));
         Assert.That(response.Errors[0].Field, Is.EqualTo("Email"));
         Assert.That(response.Errors[0].Errors[0].Code, Is.EqualTo("REQUIRED"));
@@ -1115,7 +1113,7 @@ public class ErrorWithDetailsResponseTest
         const string json = @"{
             ""IsSuccess"": false,
             ""Message"": ""Validation Failed."",
-            ""ErrorType"": ""ValidationFailed"",
+            ""Type"": ""ValidationFailed"",
             ""Errors"": [
                 {
                     ""Field"": ""Email"",
@@ -1161,7 +1159,7 @@ public class ErrorWithDetailsResponseTest
         var original = new ErrorWithDetailsResponse
         {
             Message = "Validation Failed.",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors =
             [
                 new Error
@@ -1183,7 +1181,7 @@ public class ErrorWithDetailsResponseTest
         // Assert
         Assert.That(deserialized, Is.Not.Null);
         Assert.That(deserialized!.Message, Is.EqualTo(original.Message));
-        Assert.That(deserialized.ErrorType, Is.EqualTo(original.ErrorType));
+        Assert.That(deserialized.Type, Is.EqualTo(original.Type));
         Assert.That(deserialized.Errors.Count, Is.EqualTo(original.Errors.Count));
         Assert.That(deserialized.Errors[0].Field, Is.EqualTo(original.Errors[0].Field));
         Assert.That(deserialized.Errors[0].Errors.Count, Is.EqualTo(original.Errors[0].Errors.Count));
@@ -1196,7 +1194,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
@@ -1220,7 +1218,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Validation Failed.",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors =
             [
                 new Error
@@ -1247,7 +1245,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Multiple validation errors",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors =
             [
                 new Error
@@ -1279,7 +1277,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.BusinessLogicFailed,
+            Type = ResponseType.BusinessLogicFailed,
             Errors = []
         };
 
@@ -1299,7 +1297,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Complex validation errors",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors =
             [
                 new Error
@@ -1334,7 +1332,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
@@ -1350,19 +1348,19 @@ public class ErrorWithDetailsResponseTest
         var response1 = new ErrorWithDetailsResponse
         {
             Message = "Test message 1",
-            ErrorType = ErrorType.NotFound,
+            Type = ResponseType.NotFound,
             Errors = []
         };
         var response2 = new ErrorWithDetailsResponse
         {
             Message = "Test message 2",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
         var response3 = new ErrorWithDetailsResponse
         {
             Message = "Test message 3",
-            ErrorType = ErrorType.BusinessLogicFailed,
+            Type = ResponseType.BusinessLogicFailed,
             Errors = []
         };
 
@@ -1373,18 +1371,18 @@ public class ErrorWithDetailsResponseTest
     }
 
     [Test]
-    public void Inheritance_ErrorTypeProperty_ShouldBeAccessible()
+    public void Inheritance_ResponseTypeProperty_ShouldBeAccessible()
     {
         // Arrange & Act
         var response = new ErrorWithDetailsResponse
         {
             Message = "Test message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
-        // Assert - Can access ErrorType from base class
-        Assert.That(response.ErrorType, Is.EqualTo(ErrorType.ValidationFailed));
+        // Assert - Can access ResponseType from base class
+        Assert.That(response.Type, Is.EqualTo(ResponseType.ValidationFailed));
     }
 
     [Test]
@@ -1394,7 +1392,7 @@ public class ErrorWithDetailsResponseTest
         var response = new ErrorWithDetailsResponse
         {
             Message = "Inherited message",
-            ErrorType = ErrorType.ValidationFailed,
+            Type = ResponseType.ValidationFailed,
             Errors = []
         };
 
