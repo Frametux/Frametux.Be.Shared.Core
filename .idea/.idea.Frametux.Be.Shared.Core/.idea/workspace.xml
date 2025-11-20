@@ -14,28 +14,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2f43d7de-c5fa-494d-a92f-8b8aa989a8b9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Domain/UserAggregate/Entities/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Domain/UserAggregate/Exceptions/DuplicatedUserEmailExc.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Domain/UserAggregate/Services/UserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/DomainDbContext.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/EntityConfigs/UserConfig.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/Migrations/20251117164135_InitialSchema.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/Migrations/20251117164135_InitialSchema.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/Migrations/20251117172019_UpdatePasswordHashLength.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/Migrations/20251117172019_UpdatePasswordHashLength.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/Migrations/DomainDbContextModelSnapshot.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driven/DomainDb/Settings/DomainDbSettings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driving/EndPoints.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driving/Users/RegisterUser/RegisterUserService.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driving/Users/RegisterUser/Request.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Driving/Users/RegisterUser/Response.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Frametux.Be.Shared.Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Frametux.Be.Shared.Core/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frametux.Be.Shared.Core.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/Frametux.Be.Shared.Core.sln.DotSettings.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Domain/UserAggregate/ValueObj/Password.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Domain/UserAggregate/ValueObjs/Password.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Domain/UserAggregate/ValueObj/PasswordHash.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Domain/UserAggregate/ValueObjs/PasswordHash.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frametux.Shared.Core/Frametux.Shared.Core.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Frametux.Shared.Core/Frametux.Shared.Core.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/TodoApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/TodoApi.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/Test/ImplementationTest/TodoApi/appsettings.Development.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +58,8 @@
     <setting file="mock:///Users/vultpham.mf/Documents/Projects/Frametux/Frametux.Be.Shared.Core/Test/UnitTest/Domain/Entity/BaseEntityTest.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Test/UnitTest/Domain/ValueObj/IdTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="mock:///Users/vultpham.mf/Documents/Projects/Frametux/Frametux.Be.Shared.Core/Test/UnitTest/Driving/Response/BaseResponseTest.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Test/UnitTest/obj/project.assets.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/metadata/d7d624c22d32473997ead52033e730337600/73/2597a5bc/Frametux.Shared.Core.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1c3f7d5c03bf77051eb8a758fb3549c4e2d4cb3dc6f6d567a94a315044961e/List.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3f44c5b9eb6851301091fc65ce6dd6671e1a75f8a7f12837bc921ecf12ab/Exception.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4c38112676b82651f48df265c80acbd883522b6ae8de1e6e629d5b599197c/ConfigurationBinder.cs" root0="FORCE_HIGHLIGHTING" />
@@ -197,7 +181,7 @@
       <workItem from="1763391433344" duration="9602000" />
       <workItem from="1763461398344" duration="3135000" />
       <workItem from="1763473559646" duration="22000" />
-      <workItem from="1763475532364" duration="32663000" />
+      <workItem from="1763475532364" duration="35784000" />
     </task>
     <task id="LOCAL-00001" summary="Add initial project setup with solution, .gitignore, and IDE configuration files">
       <option name="closed" value="true" />
@@ -479,7 +463,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763649605628</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="TodoApi">
+      <option name="closed" value="true" />
+      <created>1763652244210</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1763652244210</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -526,7 +518,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Add `PasswordHash` value object with validation rules and comprehensive unit tests" />
     <MESSAGE value="Remove redundant null-forgiving operator from `Email` value object constructor" />
     <MESSAGE value="Remove parameterless constructor from `Email` value object and associated tests" />
     <MESSAGE value="Update IDE and project configuration files for improved syntax highlighting and task management" />
@@ -551,7 +542,8 @@
     <MESSAGE value="Add `FluentValidation.DependencyInjectionExtensions` package and `Driven` folder to the project" />
     <MESSAGE value="Add `ServiceCollectionExt` class to register shared core services with FluentValidation support" />
     <MESSAGE value="Add `Moq` package and `Microsoft.AspNetCore.App` framework reference to unit test project" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="TodoApi" />
+    <option name="LAST_COMMIT_MESSAGE" value="TodoApi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
