@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using FluentValidation;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace TodoApi.Domain.UserAggregate.ValueObj;
+namespace TodoApi.Domain.UserAggregate.ValueObjs;
 
 public record PasswordHash
 {
@@ -11,7 +11,7 @@ public record PasswordHash
     public string Hash { get; private init; }
     
     const int HashByteLength = 32; // Hash byte length = 256 / 8 = 32 bytes
-    public static readonly int HashMaxLength = CalculateBase64Length(SaltBytesLength) + 10; // Add 10 for some extra space just in case
+    public static readonly int HashMaxLength = CalculateBase64Length(HashByteLength) + 10; // Add 10 for some extra space just in case
     
     public static InlineValidator<string> HashValidator { get; } = new()
     {

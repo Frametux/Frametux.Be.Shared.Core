@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace TodoApi.Domain.UserAggregate.ValueObj;
+namespace TodoApi.Domain.UserAggregate.ValueObjs;
 
 public record Password
 {
