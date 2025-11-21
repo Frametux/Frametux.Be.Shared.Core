@@ -10,7 +10,7 @@ on:
 env: 
   DOTNET_VERSION: 9.0.x
 #  PROJECT_LOCATION: ./Frametux.Shared.Core
-  UNITTEST_PROJECT_PATH: ./Tests/UnitTest/UnitTest.csproj
+  UNITTEST_PROJECT_PATH: ./Test/UnitTest/UnitTest.csproj
 
 jobs: 
   
@@ -23,7 +23,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v5
         with: 
-          dotnet-version: 9.0.x
+          dotnet-version: ${{ env.DOTNET_VERSION }}
         
       - name: Run Unit Tests
         run: dotnet test $UNITTEST_PROJECT_PATH --configuration Release
