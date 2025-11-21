@@ -10,6 +10,7 @@ on:
 env: 
   DOTNET_VERSION: 9.0.x
   PROJECT_LOCATION: ./Frametux.Shared.Core
+  PACKAGE_LOCATION: ./Frametux.Shared.Core/bin/Release
   UNITTEST_PROJECT_PATH: ./Test/UnitTest/UnitTest.csproj
 
 jobs: 
@@ -31,6 +32,8 @@ jobs:
   publish:
     needs: test
     runs-on: ubuntu-latest
+    permissions: 
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -47,4 +50,7 @@ jobs:
         run: dotnet pack -c Release
         
       - name: Push package to github
-        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/frametux/index.json
+        run: 
+          dotnet nuget push ${{ env.PACKAGE_LOCATION }}/*.nupkg 
+          --api-key ${{ secrets.GITHUB_TOKEN }} 
+          --source https://nuget.pkg.github.com/frametux/index.json
