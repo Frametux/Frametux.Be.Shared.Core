@@ -1,0 +1,38 @@
+name: Publishing package
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+env: 
+  DOTNET_VERSION: 9.0.x
+#  PROJECT_LOCATION: ./Frametux.Shared.Core
+  UNITTEST_PROJECT_PATH: ./Tests/UnitTest/UnitTest.csproj
+
+jobs: 
+  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v5
+        with: dotnet-version: $DOTNET_VERSION
+        
+      - name: Run Unit Tests
+        run: dotnet test $UNITTEST_PROJECT_PATH --configuration Release
+        
+#  publish:
+#    needs: test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#        
+#      - name: Setup .NET Core
+#        uses: actions/setup-dotnet@v5
