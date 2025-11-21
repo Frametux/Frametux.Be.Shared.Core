@@ -26,7 +26,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
         
       - name: Run Unit Tests
-        run: dotnet test $UNITTEST_PROJECT_PATH --configuration Release
+        run: dotnet test ./Test/UnitTest/UnitTest.csproj --configuration Release
         
 #  publish:
 #    needs: test
