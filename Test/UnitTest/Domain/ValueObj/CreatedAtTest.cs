@@ -451,7 +451,8 @@ public class CreatedAtTest
         // Assert
         Assert.That(result.Kind, Is.EqualTo(DateTimeKind.Utc));
         Assert.That(result, Is.EqualTo(expectedUtc));
-        Assert.That(result, Is.Not.EqualTo(localDateTime)); // Different due to UTC conversion
+        // Note: The actual time value may be the same as localDateTime if the system timezone is UTC
+        // The important assertion is that the Kind is UTC and the value equals the expected UTC conversion
     }
 
     [Test]
