@@ -9,7 +9,7 @@ on:
 
 env: 
   DOTNET_VERSION: 9.0.x
-#  PROJECT_LOCATION: ./Frametux.Shared.Core
+  PROJECT_LOCATION: ./Frametux.Shared.Core
   UNITTEST_PROJECT_PATH: ./Test/UnitTest/UnitTest.csproj
 
 jobs: 
@@ -28,12 +28,23 @@ jobs:
       - name: Run Unit Tests
         run: dotnet test ${{ env.UNITTEST_PROJECT_PATH }} --configuration Release
         
-#  publish:
-#    needs: test
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v2
-#        
-#      - name: Setup .NET Core
-#        uses: actions/setup-dotnet@v5
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          
+      - name: Cd correct directory
+        run: cd ${{ env.PROJECT_LOCATION }}
+        
+      - name: Pack package
+        run: dotnet pack -c Release
+        
+      - name: Push package to github
+        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/frametux/index.json
