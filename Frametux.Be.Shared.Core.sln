@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ImplementationTest", "Imple
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApi", "Test\ImplementationTest\TodoApi\TodoApi.csproj", "{32F9F3A4-8FE8-498C-9BE6-95C5A0B9ED30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestKafkaDriving", "Test\ImplementationTest\TestKafkaDriving\TestKafkaDriving.csproj", "{D6D9A0F5-6D4B-4CE6-84FD-401B34A4D9D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,10 +30,15 @@ Global
 		{32F9F3A4-8FE8-498C-9BE6-95C5A0B9ED30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32F9F3A4-8FE8-498C-9BE6-95C5A0B9ED30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32F9F3A4-8FE8-498C-9BE6-95C5A0B9ED30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D9A0F5-6D4B-4CE6-84FD-401B34A4D9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D9A0F5-6D4B-4CE6-84FD-401B34A4D9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D9A0F5-6D4B-4CE6-84FD-401B34A4D9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D9A0F5-6D4B-4CE6-84FD-401B34A4D9D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DE11A2D2-C9ED-4385-9772-51A5ECF92C7E} = {B78A7865-83AB-40CD-86BA-743C88A3994A}
 		{ABE8C7CB-C0F0-448C-B9E7-4FBFA7C4A938} = {B78A7865-83AB-40CD-86BA-743C88A3994A}
 		{32F9F3A4-8FE8-498C-9BE6-95C5A0B9ED30} = {ABE8C7CB-C0F0-448C-B9E7-4FBFA7C4A938}
+		{D6D9A0F5-6D4B-4CE6-84FD-401B34A4D9D1} = {ABE8C7CB-C0F0-448C-B9E7-4FBFA7C4A938}
 	EndGlobalSection
 EndGlobal
