@@ -4,6 +4,7 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <PackageId>Frametux.Be.Shared.Core</PackageId>
         <IsPackable>true</IsPackable>
         <Authors>vultpham.mf@gmail.com</Authors>
     </PropertyGroup>
