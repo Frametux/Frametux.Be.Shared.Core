@@ -7,7 +7,7 @@
         <PackageId>Frametux.Be.Shared.Core</PackageId>
         <IsPackable>true</IsPackable>
         <Authors>vultpham.mf@gmail.com</Authors>
-        <Version>1.0.2</Version>
+        <Version>1.0.3</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -17,14 +17,11 @@
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="12.0.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.12.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0">
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.11">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Driven\" />
     </ItemGroup>
 
 </Project>
