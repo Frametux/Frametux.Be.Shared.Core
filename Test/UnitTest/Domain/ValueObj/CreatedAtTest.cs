@@ -774,7 +774,7 @@ public class CreatedAtTest
         var result = CreatedAt.Validator.Validate(futureDateTime);
 
         // Assert
-        Assert.That(result.Errors.First().ErrorMessage, Is.EqualTo("cannot be in the future"));
+        Assert.That(result.Errors.First().ErrorMessage, Is.EqualTo("cannot be in the future."));
     }
 
     [Test]
