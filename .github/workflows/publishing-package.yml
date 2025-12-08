@@ -1,4 +1,4 @@
-name: Publishing package
+name: publish-package.yml
 
 on:
   push:
