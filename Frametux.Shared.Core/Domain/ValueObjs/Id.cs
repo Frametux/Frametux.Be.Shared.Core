@@ -1,8 +1,9 @@
 using FluentValidation;
+using Frametux.Shared.Core.Domain.ValueObjs.Base;
 
 namespace Frametux.Shared.Core.Domain.ValueObjs;
 
-public record Id
+public record Id : ISinglePropValueObj<string>
 {
     public string Value { get; }
     

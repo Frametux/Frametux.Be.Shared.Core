@@ -8,7 +8,6 @@ on:
 
 env: 
   DOTNET_VERSION: 9.0.x
-  PROJECT_LOCATION: ./Frametux.Shared.Core
   PACKAGE_LOCATION: ./Frametux.Shared.Core/bin/Release
   UNITTEST_PROJECT_PATH: ./Test/UnitTest/UnitTest.csproj
 
@@ -41,9 +40,6 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
-          
-      - name: Cd correct directory
-        run: cd ${{ env.PROJECT_LOCATION }}
         
       - name: Pack package
         run: dotnet pack -c Release

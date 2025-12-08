@@ -1,8 +1,9 @@
 using FluentValidation;
+using Frametux.Shared.Core.Domain.ValueObjs.Base;
 
 namespace Frametux.Shared.Core.Domain.ValueObjs;
 
-public record UtcDateTime
+public record UtcDateTime : ISinglePropValueObj<DateTime>
 {
     public DateTime Value { get; protected init; }
     
