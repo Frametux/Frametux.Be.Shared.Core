@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
-namespace Frametux.Shared.Core.Driving.ApiTypes.MinimalApi.RequestValidation;
+namespace Frametux.Shared.Core.Driving.MinimalApi.RequestValidation;
 
 public static class RouteHandlerBuilderValidationExt
 {

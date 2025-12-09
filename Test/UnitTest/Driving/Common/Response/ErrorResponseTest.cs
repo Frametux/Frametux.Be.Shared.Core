@@ -1,8 +1,8 @@
 using System.Text.Json;
-using Frametux.Shared.Core.Driving.Responses;
-using Frametux.Shared.Core.Driving.Responses.Error;
+using Frametux.Shared.Core.Driving.Common.Responses;
+using Frametux.Shared.Core.Driving.Common.Responses.Error;
 
-namespace UnitTest.Driving.Response;
+namespace UnitTest.Driving.Common.Response;
 
 [TestFixture]
 public class ErrorResponseTest
@@ -531,7 +531,7 @@ public class ErrorResponseTest
         };
 
         // Assert
-        Assert.That(response, Is.InstanceOf<Frametux.Shared.Core.Driving.Responses.BaseResponse>());
+        Assert.That(response, Is.InstanceOf<BaseResponse>());
     }
 
     [Test]

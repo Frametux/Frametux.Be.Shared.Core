@@ -1,10 +1,10 @@
 using FluentValidation;
 using FluentValidation.Results;
-using Frametux.Shared.Core.Driving.ApiTypes.MinimalApi.RequestValidation;
+using Frametux.Shared.Core.Driving.MinimalApi.RequestValidation;
 using Microsoft.AspNetCore.Http;
 using Moq;
 
-namespace UnitTest.Driving.ApiTypes.MinimalApi;
+namespace UnitTest.Driving.MinimalApi;
 
 [TestFixture]
 public class RequestValidationFilterTest

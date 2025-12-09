@@ -1,7 +1,7 @@
-using Frametux.Shared.Core.Driving.ApiTypes.MinimalApi;
-using Frametux.Shared.Core.Driving.ApiTypes.MinimalApi.RequestValidation;
-using Frametux.Shared.Core.Driving.Responses;
-using Frametux.Shared.Core.Driving.Responses.Error;
+using Frametux.Shared.Core.Driving.Common.Responses;
+using Frametux.Shared.Core.Driving.Common.Responses.Error;
+using Frametux.Shared.Core.Driving.MinimalApi;
+using Frametux.Shared.Core.Driving.MinimalApi.RequestValidation;
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.Domain.UserAggregate.Entities;
 using TodoApi.Domain.UserAggregate.Exceptions;

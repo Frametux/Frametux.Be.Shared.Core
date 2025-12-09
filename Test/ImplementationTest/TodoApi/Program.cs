@@ -1,4 +1,5 @@
 using Frametux.Shared.Core;
+using Frametux.Shared.Core.Driving.MinimalApi;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using TodoApi.Domain.UserAggregate.Services;
@@ -21,7 +22,7 @@ builder.Services.AddDbContext<DomainDbContext>(opt
 builder.Services.AddSharedCore(typeof(Program).Assembly);
 
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<RegisterUserService, RegisterUserService>();
+builder.Services.AddScoped<RegisterUserService>();
 
 var app = builder.Build();
 
@@ -32,8 +33,8 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-RegisterUserService.RegisterRestfulApi(app);
-
 app.UseHttpsRedirection();
+
+app.UseMinimalApis(typeof(Program).Assembly);
 
 app.Run();

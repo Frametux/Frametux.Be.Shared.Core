@@ -1,4 +1,4 @@
-using Frametux.Shared.Core.Driving.Responses.Success;
+using Frametux.Shared.Core.Driving.Common.Responses.Success;
 
 namespace TodoApi.Driving.Users.RegisterUser;
 

@@ -31,6 +31,8 @@
 
     <ItemGroup>
       <Folder Include="Domain\Entity\" />
+      <Folder Include="Driving\Common\" />
+      <Folder Include="Driving\MinimalApi\RequestValidation\" />
     </ItemGroup>
 
 </Project>

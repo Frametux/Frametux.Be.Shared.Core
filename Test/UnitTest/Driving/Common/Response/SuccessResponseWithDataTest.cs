@@ -1,8 +1,8 @@
 using System.Text.Json;
-using Frametux.Shared.Core.Driving.Responses;
-using Frametux.Shared.Core.Driving.Responses.Success;
+using Frametux.Shared.Core.Driving.Common.Responses;
+using Frametux.Shared.Core.Driving.Common.Responses.Success;
 
-namespace UnitTest.Driving.Response;
+namespace UnitTest.Driving.Common.Response;
 
 [TestFixture]
 public class SuccessResponseWithDataTest
@@ -1076,7 +1076,7 @@ public class SuccessResponseWithDataTest
         };
 
         // Assert
-        Assert.That(response, Is.InstanceOf<Frametux.Shared.Core.Driving.Responses.BaseResponse>());
+        Assert.That(response, Is.InstanceOf<BaseResponse>());
     }
 
     [Test]

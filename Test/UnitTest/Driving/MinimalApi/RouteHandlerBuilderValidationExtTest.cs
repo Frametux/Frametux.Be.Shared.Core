@@ -1,7 +1,7 @@
-using Frametux.Shared.Core.Driving.ApiTypes.MinimalApi.RequestValidation;
+using Frametux.Shared.Core.Driving.MinimalApi.RequestValidation;
 using Microsoft.AspNetCore.Builder;
 
-namespace UnitTest.Driving.ApiTypes.MinimalApi;
+namespace UnitTest.Driving.MinimalApi;
 
 [TestFixture]
 public class RouteHandlerBuilderValidationExtTest

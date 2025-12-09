@@ -1,7 +1,7 @@
 using FluentValidation.Results;
 using Frametux.Shared.Core.Domain.Exceptions;
 
-namespace Frametux.Shared.Core.Driving.Responses.Error;
+namespace Frametux.Shared.Core.Driving.Common.Responses.Error;
 
 public record ErrorWithDetailsResponse : ErrorResponse
 {

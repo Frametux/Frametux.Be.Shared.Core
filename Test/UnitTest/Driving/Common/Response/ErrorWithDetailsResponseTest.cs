@@ -1,10 +1,10 @@
 using System.Text.Json;
 using FluentValidation.Results;
 using Frametux.Shared.Core.Domain.Exceptions;
-using Frametux.Shared.Core.Driving.Responses;
-using Frametux.Shared.Core.Driving.Responses.Error;
+using Frametux.Shared.Core.Driving.Common.Responses;
+using Frametux.Shared.Core.Driving.Common.Responses.Error;
 
-namespace UnitTest.Driving.Response;
+namespace UnitTest.Driving.Common.Response;
 
 [TestFixture]
 public class ErrorWithDetailsResponseTest
@@ -1338,7 +1338,7 @@ public class ErrorWithDetailsResponseTest
 
         // Assert
         Assert.That(response, Is.InstanceOf<ErrorResponse>());
-        Assert.That(response, Is.InstanceOf<Frametux.Shared.Core.Driving.Responses.BaseResponse>());
+        Assert.That(response, Is.InstanceOf<BaseResponse>());
     }
 
     [Test]

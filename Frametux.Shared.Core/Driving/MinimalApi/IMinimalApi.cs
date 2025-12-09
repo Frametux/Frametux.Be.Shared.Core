@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Routing;
 
-namespace Frametux.Shared.Core.Driving.ApiTypes.MinimalApi;
+namespace Frametux.Shared.Core.Driving.MinimalApi;
 
 public interface IMinimalApi
 {

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Frametux.Shared.Core.Driving.Responses.Error;
+using Frametux.Shared.Core.Driving.Common.Responses.Error;
 using Microsoft.AspNetCore.Http;
 
-namespace Frametux.Shared.Core.Driving.ApiTypes.MinimalApi.RequestValidation;
+namespace Frametux.Shared.Core.Driving.MinimalApi.RequestValidation;
 
 public class RequestValidationFilter<TRequest>(IValidator<TRequest>? validator = null) : IEndpointFilter
 {

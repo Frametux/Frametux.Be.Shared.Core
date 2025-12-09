@@ -1,6 +1,6 @@
-using Frametux.Shared.Core.Driving.Responses;
+using Frametux.Shared.Core.Driving.Common.Responses;
 
-namespace UnitTest.Driving.Response;
+namespace UnitTest.Driving.Common.Response;
 
 [TestFixture]
 public class BaseResponseTest

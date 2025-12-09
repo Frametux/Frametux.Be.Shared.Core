@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Frametux.Shared.Core.Driving.Responses;
+namespace Frametux.Shared.Core.Driving.Common.Responses;
 
 public abstract record BaseResponse(bool IsSuccess)
 {
