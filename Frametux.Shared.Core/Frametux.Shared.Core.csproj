@@ -7,7 +7,7 @@
         <PackageId>Frametux.Be.Shared.Core</PackageId>
         <IsPackable>true</IsPackable>
         <Authors>vultpham.mf@gmail.com</Authors>
-        <Version>1.0.5</Version>
+        <Version>1.0.6</Version>
     </PropertyGroup>
 
     <ItemGroup>
